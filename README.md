@@ -17,3 +17,8 @@ npm run dev
 ```
 
 Navigate to [localhost:5000](http://localhost:5000).
+
+
+## To run Mysql container:
+
+```sudo docker run --name pinponelo-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=pinponelo -e MYSQL_USER=test -e MYSQL_PASSWORD=test -d mysql```
