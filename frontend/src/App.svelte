@@ -1,30 +1,23 @@
 <script>
-	export let name;
+	import { Router, Link, Route } from "svelte-routing";
+	import Positions from "./pages/Positions.svelte";
+
+	export let url = "";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<Router url="{url}">
+	<nav>
+		<Link to="/">Home</Link>
+		<Link to="about">About</Link>
+		<Link to="blog">Blog</Link>
+	</nav>
+	<div>
+		<Route path="/"><Positions /></Route>
+	</div>
+</Router>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+<style global>
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
 </style>
