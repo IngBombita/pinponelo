@@ -1,4 +1,4 @@
 /node_modules/
 frontend/public/build/
-
+/.idea
 .DS_Store
