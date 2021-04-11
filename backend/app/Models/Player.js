@@ -6,7 +6,7 @@ const Hash = use('Hash')
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class User extends Model {
+class Player extends Model {
   static boot () {
     super.boot()
 
@@ -34,6 +34,11 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  friends () {
+    return this
+      .hasMany('App/Models/Friendship')
+  }
 }
 
-module.exports = User
+module.exports = Player

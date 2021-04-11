@@ -18,8 +18,21 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 Route
-  .get('/me', 'UserController.me')
+  .get('/me', 'PlayerController.me')
+  .middleware('auth')
+Route
+  .get('/players/search', 'PlayerController.search')
+  .middleware('auth')
+Route
+  .get('/friend/invite/:player_id', 'PlayerController.sendFriendRequest')
   .middleware('auth')
 
-Route.post('/login', 'UserController.login')
-Route.post('/register', 'UserController.register').middleware('guest')
+Route
+  .get('/friendships', 'FriendshipController.index')
+  .middleware('auth')
+
+Route
+  .put('/friendships/:friendship_id', 'FriendshipController.update')
+  .middleware('auth')
+
+Route.post('/register', 'PlayerController.register').middleware('guest')
