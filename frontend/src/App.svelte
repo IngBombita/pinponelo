@@ -1,7 +1,8 @@
 <script>
-    import {Router, Link, Route} from "svelte-routing";
+    import {Link, Route, Router} from "svelte-routing";
     import Positions from "./pages/Positions.svelte";
     import Main from "./pages/Main.svelte";
+    import Profile from "./pages/Profile.svelte";
 
     export let url = "";
 </script>
@@ -21,28 +22,37 @@
             <div class="w-full md:w-auto md:flex-grow md:flex md:items-center">
                 <ul class="flex flex-col mt-4 -mx-4 pt-4 border-t md:flex-row md:items-center md:mx-0 md:mt-0 md:pt-0 md:mr-4 lg:mr-8 md:border-0">
                     <li>
-                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2" to="/">Inicio</Link>
+                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2"
+                              to="/">Inicio
+                        </Link>
                     </li>
                     <li>
-                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2" to="/profile">Perfil</Link>
+                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2"
+                              to="/profile">Perfil
+                        </Link>
                     </li>
                     <li>
-                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2" to="/positions">Posiciones</Link>
+                        <Link class="bg-blue-500 text-white font-bold text-xl py-2 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-6/12 mr-2"
+                              to="/positions">Posiciones
+                        </Link>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <Route path="/">
+        <Main/>
+    </Route>
     <Route path="/positions">
         <Positions/>
     </Route>
-    <Route path="/">
-        <Main/>
+    <Route path="/profile">
+        <Profile/>
     </Route>
 </Router>
 
 <style global>
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 </style>

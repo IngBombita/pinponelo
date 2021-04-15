@@ -7,7 +7,11 @@ const Hash = use('Hash')
 const Model = use('Model')
 
 class Player extends Model {
-  static boot () {
+  static get hidden() {
+    return ['password']
+  }
+
+  static boot() {
     super.boot()
 
     /**
@@ -31,11 +35,11 @@ class Player extends Model {
    *
    * @return {Object}
    */
-  tokens () {
+  tokens() {
     return this.hasMany('App/Models/Token')
   }
 
-  friends () {
+  friends() {
     return this
       .hasMany('App/Models/Friendship')
   }
