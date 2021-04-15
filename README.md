@@ -1,6 +1,6 @@
 # Pinponelo
 
-This is a [Scalatra](https://scalatra.org/) and [Svelte](https://svelte.dev/) project for tracking ELO in Ping Pong.
+This is a AdonisJS and [Svelte](https://svelte.dev/) project for tracking ELO in Ping Pong.
 
 ## Get started
 
