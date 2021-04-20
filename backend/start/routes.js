@@ -35,4 +35,11 @@ Route
   .put('/friendships/:friendship_id', 'FriendshipController.update')
   .middleware('auth')
 
+Route
+  .post('/games', 'GamesController.create')
+  .middleware('auth')
+Route
+  .put('/games', 'GamesController.update')
+  .middleware('auth')
+
 Route.post('/register', 'PlayerController.register').middleware('guest')
