@@ -1,5 +1,7 @@
 'use strict'
 
+import {GameState} from "./ValueObjects/GameState";
+
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
@@ -10,9 +12,31 @@ class Game extends Model {
 
     game.playerA().save(playerA)
     game.playerB().save(playerB)
-    game.state = state
+    game.setState(state);
 
     return game
+  }
+
+  static get computed() {
+    return ['state']
+  }
+
+  setState(state) {
+    if (!this.stateMachine) {
+      this.stateMachine = new GameState(state)
+    }
+
+    if (!GameStates.enumValues().includes(state)) {
+      throw new Error(`Game state ${state} is invalid`)
+    }
+
+    this.stateMachine.changeState(state);
+    this.state = this.getState()
+    return this.stateMachine.state
+  }
+
+  getState() {
+    return this.stateMachine.state
   }
 
   playerA() {

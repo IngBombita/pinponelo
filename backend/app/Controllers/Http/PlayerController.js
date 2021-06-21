@@ -1,9 +1,8 @@
 'use strict'
 
 const Player = use("App/Models/Player");
-const Friendship = use("App/Models/Friendship");
-const FriendshipStates = use("App/Models/Enums/FriendshipStates");
 const Database = use("Database")
+const CurrentUser = use('App/Services/CurrentUserService')
 
 const MIN_TAG_VALUE = 100;
 const MAX_TAG_VALUE = 1000;
@@ -11,21 +10,16 @@ const DEFAULT_ELO = 1000;
 
 class PlayerController {
 
-  async me({auth, response}) {
-    try {
-      let player = await auth.getUser()
-      player.friends = await Database
-        .from('friendships')
-        .whereRaw('(player_a_id = :playerA OR player_b_id = :playerB) AND state = 2', {
-          playerA: player.id,
-          playerB: player.id
-        }).getCount()
+  async me({response}) {
+    let player = await CurrentUser.getUser();
+    player.friends = await Database
+      .from('friendships')
+      .whereRaw('(player_a_id = :playerA OR player_b_id = :playerB) AND state = 2', {
+        playerA: player.id,
+        playerB: player.id
+      }).getCount()
 
-      response.json(player, 200)
-    } catch (error) {
-      console.log(error)
-      response.send('Credentials missing', 301)
-    }
+    response.json(player, 200)
   }
 
   async update({request, response, params}) {
@@ -86,23 +80,6 @@ class PlayerController {
 
     players.limit(5).fetch()
     response.json({players})
-  }
-
-  async sendFriendRequest({params, auth, response}) {
-    try {
-      let playerA = await auth.getUser()
-      let playerB = await Player.find(params.player_id)
-      let friendship = new Friendship()
-      friendship.state = params.state ?? FriendshipStates.SENT
-      await friendship.playerA().associate(playerA)
-      await friendship.playerB().associate(playerB)
-      await friendship.save(friendship)
-
-      response.json({message: 'Created'}, 201)
-    } catch (error) {
-      console.error(error)
-      response.send({error: JSON.stringify(error)})
-    }
   }
 }
 

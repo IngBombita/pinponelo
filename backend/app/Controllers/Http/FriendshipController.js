@@ -2,11 +2,13 @@
 
 const Friendship = use("App/Models/Friendship");
 const Database = use("Database")
+const CurrentUser = use('App/Services/CurrentUserService')
+const Player = use("App/Models/Player");
 
 class FriendshipController {
 
-  async index({auth, request, response}) {
-    let player = await auth.getUser();
+  async index({request, response}) {
+    let player = CurrentUser.getUser();
     let {state} = request.all()
 
     if (state) {
@@ -26,10 +28,21 @@ class FriendshipController {
     response.json({data: friendships})
   }
 
+  async create({request, response}) {
+    let playerA = await CurrentUser.getUser();
+    let playerB = await Player.find(request.request.input('player_id'))
+    let friendship = await Friendship.createFromInvite({
+      playerA, playerB, state: request.request.input('state')
+    });
+    await friendship.save(friendship)
+
+    response.json({message: 'Created'}, 201)
+  }
+
   async update({params, request, response}) {
     let {state} = request.all()
     let friendship = await Friendship.find(params.friendship_id)
-    friendship.state = state
+    friendship.setState(state)
     await friendship.save()
 
     response.json({message: 'Friendship updated'})

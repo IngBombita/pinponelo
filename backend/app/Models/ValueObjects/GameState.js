@@ -1,7 +1,7 @@
 import GameStates from '../Enums/GameStates';
 import StateMachine from 'javascript-state-machine';
 
-class GameState {
+export class GameState {
   constructor(initial) {
     new StateMachine({
       init: initial,
@@ -16,7 +16,11 @@ class GameState {
           to: GameStates.cancelled
         },
       ],
-      methods: {}
+      methods: {
+        changeState: function (state) {
+
+        }
+      }
     });
   }
 }

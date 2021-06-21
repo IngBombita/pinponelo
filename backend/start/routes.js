@@ -23,14 +23,13 @@ Route
 Route
   .get('/players/search', 'PlayerController.search')
   .middleware('auth')
-Route
-  .get('/friend/invite/:player_id', 'PlayerController.sendFriendRequest')
-  .middleware('auth')
 
+Route
+  .post('/friendships', 'FriendshipController.create')
+  .middleware('auth')
 Route
   .get('/friendships', 'FriendshipController.index')
   .middleware('auth')
-
 Route
   .put('/friendships/:friendship_id', 'FriendshipController.update')
   .middleware('auth')
