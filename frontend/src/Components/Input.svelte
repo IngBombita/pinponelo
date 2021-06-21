@@ -27,20 +27,18 @@
 </style>
 
 <script>
-    let value;
-
-    
+    export let value, inputName, type;
 </script>
 
 <div class="relative h-12 input-component w-full mt-10" class:empty={!value}>
     <input
-            id="username"
-            type="text"
-            name="name"
-            class="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
             autofocus
+            class="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
+            id="username"
+            name="name"
+            type={type}
     />
     <label for="username" class="absolute left-2 transition-all bg-white px-1">
-        Player username
+        {inputName}
     </label>
 </div>

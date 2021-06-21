@@ -1,7 +1,7 @@
 <script>
     import {onMount} from 'svelte';
     import axios from "axios";
-    import PlayerSearcherInput from "../Components/PlayerSearcherInput.svelte";
+    import PlayerSearcherInput from "../Components/Input.svelte";
 
     let profile = {};
     let isSearching = false;

@@ -1,4 +1,21 @@
-<script></script>
+<script>
+
+import PaddlesIcon from "../Components/SVGs/PaddlesIcon.svelte";
+
+    import {clickOutside} from '../Components/REPL/clickOutside.js';
+    import {fly} from 'svelte/transition';
+    import Input from "../Components/Input.svelte";
+
+    let showLoginForm = false;
+    let showRegisterForm = false;
+
+    let loginForm = {
+        email: '',
+        password: ''
+    };
+
+    let submitLoginForm = () => {};
+</script>
 
 <!-- component -->
 <main class="grid h-screen place-items-center relative bg-gradient-to-r from-yellow-400 to-yellow-500">
@@ -14,11 +31,36 @@
             <div>
                 <div class="flex mb-4 items-center">
                     <h1 class="text-4xl">Pinponelo</h1>
-                    <svg id="Capa_1" enable-background="new 0 0 510.138 510.138" height="48" viewBox="0 0 510.138 510.138" width="48" xmlns="http://www.w3.org/2000/svg"><g><path d="m510.132 218.684c.999 120.838-124.57 197.99-231.14 147.36-32.231 32.221-62.71 62.704-81.39 81.37-34.26-60.21-22.52-39.57-52.69-92.61l131.63-279.61c117.55-53.18 232.64 31.02 233.59 143.49z" fill="#ffd5b6"/><path d="m396.222 374.504c-37.139 11.486-79.433 9.497-117.23-8.46-32.231 32.221-62.71 62.704-81.39 81.37l-27.62-48.54 292.98-292.98c85.43 85.69 49.84 232.73-66.74 268.61z" fill="#ffc896"/><path d="m510.132 218.684c.623 75.706-50.498 137.735-116.22 156.51-121.216-119.568-83.538-82.405-176.6-174.19l59.23-125.81c117.551-53.178 232.642 31.019 233.59 143.49z" fill="#5c7099"/><path d="m393.912 375.194-100.81-99.44 169.86-169.86c87.205 87.465 47.344 236.049-69.05 269.3z" fill="#404a80"/><path d="m321.402 187.634c-.02.05-.02.11-.03.16-.09.54-.18 1.08-.28 1.62-.1.63-.22 1.26-.34 1.88-3.93 20.76-11.85 40.73-23.42 58.61-.2.31-.4.62-.61.93-12.53 19.11-29.25 35.78-49.7 48.4-.03.01-.05.03-.08.05-9.54 5.89-19.9 10.9-31.03 14.86v155.96h-108.22v-155.96c-39.34-14-72.24-43.01-91.1-81.25-42.29-87.12-.28-189.46 90.42-223.3 49.913-17.993 105.859-10.345 149.177 20.905.051.037.102.074.154.111 1.482 1.072 2.949 2.172 4.402 3.299.481.373.964.744 1.441 1.122.574.456 1.145.916 1.714 1.381 1.142.93 2.276 1.87 3.392 2.831.98.83 1.95 1.69 2.91 2.57.42.37.84.76 1.25 1.13 1.01.94 2.01 1.88 3 2.84.57.57 1.13 1.12 1.7 1.69 5.78 5.79 11.21 12.1 16.23 18.92.47.62.92 1.25 1.37 1.89.27.37.53.75.8 1.13 25.37 35.931 33.46 78.381 26.85 118.221z" fill="#ffd5b6"/><path d="m323.462 161.774c0 8.78-.7 17.42-2.06 25.86-.02.05-.02.11-.03.16-.09.54-.18 1.08-.28 1.62-.1.63-.22 1.26-.34 1.88-3.91 21.18-11.98 41.04-23.42 58.61-.2.31-.4.62-.61.93-12.4 18.77-28.68 34.89-47.87 47.18-.62.4-1.23.8-1.83 1.22-.03.01-.05.03-.08.05-9.54 5.89-19.9 10.9-31.03 14.86v155.96h-54.11v-470c40.1-.02 77.06 14.67 105.49 39.14.98.84 1.95 1.7 2.91 2.57.42.37.84.76 1.25 1.13 1.01.94 2.01 1.88 3 2.84.57.55 1.13 1.11 1.7 1.69 5.88 5.86 11.31 12.19 16.23 18.92.47.62.92 1.25 1.37 1.89.27.37.53.75.8 1.13 18.19 26.08 28.91 57.85 28.91 92.36z" fill="#ffc896"/><path d="m323.462 161.774c0 27.878-7.335 55.317-20.17 78.22h-282.99c-59.104-106.622 18.008-237.879 138.78-239.87 87.145-1.918 164.38 68.605 164.38 161.65z" fill="#f66"/><path d="m323.462 161.774c0 27.878-7.335 55.317-20.17 78.22h-141.49v-239.89c88.457-.042 161.66 71.51 161.66 161.67z" fill="#e62e6b"/><circle cx="455.132" cy="455.104" fill="#ecf9fd" r="55"/></g></svg>
+                    <PaddlesIcon/>
                 </div>
-                <button class="bg-blue-500 text-white font-bold text-4xl py-8 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-full">
+                <button class="bg-blue-500 text-white font-bold text-4xl py-8 px-4 border-b-4 hover:border-b-2 hover:border-t-2 border-blue-700 hover:border-blue rounded w-full"
+                        on:click={()=>showLoginForm = !showLoginForm}
+                >
                     JUGAR
                 </button>
+                <!-- Modal Background -->
+                {#if showLoginForm}
+                    <div transition:fly="{{ y: 400, duration: 500 }}"
+                         use:clickOutside on:click_outside={() => showLoginForm=false}
+                         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
+                        <!-- Modal -->
+                        <div class="bg-white rounded-xl shadow-2xl p-6 sm:w-10/12 mx-10">
+                            <!-- Title -->
+                            <span class="font-bold block text-2xl mb-3">Login</span>
+                            <!-- Buttons -->
+                            <div class="text-right mt-5">
+                                <Input inputName="{'E-mail'}" type="{'email'}" value="{loginForm.email}"/>
+                                <Input inputName="{'Password'}" type="{'password'}" value="{loginForm.password}"/>
+                                <button
+                                        class="flex items-center justify-center h-12 px-6 bg-gray-900 text-white w-full mt-10 rounded"
+                                        on:click={submitLoginForm}
+                                >
+                                    <span>Login</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
             </div>
         </div>
     </div>

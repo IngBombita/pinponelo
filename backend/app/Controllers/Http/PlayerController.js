@@ -3,9 +3,8 @@
 const Player = use("App/Models/Player");
 const Database = use("Database")
 const CurrentUser = use('App/Services/CurrentUserService')
+const TagCreator = use('App/Services/TagCreator')
 
-const MIN_TAG_VALUE = 100;
-const MAX_TAG_VALUE = 1000;
 const DEFAULT_ELO = 1000;
 
 class PlayerController {
@@ -55,12 +54,8 @@ class PlayerController {
     player.password = password
     player.username = username
     player.elo = DEFAULT_ELO
-    let tag, exists
-    do {
-      tag = Math.floor(Math.random() * (MAX_TAG_VALUE - MIN_TAG_VALUE) + MIN_TAG_VALUE);
-      exists = await Database.from('players').where({username, tag}).first();
-    } while (exists);
-    player.tag = tag
+    player.tag = await TagCreator.create(username)
+
     await player.save(player);
 
     response.json({message: 'Created', player}, 201)
