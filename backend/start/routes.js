@@ -42,3 +42,4 @@ Route
   .middleware('auth')
 
 Route.post('/register', 'PlayerController.register').middleware('guest')
+Route.post('/login', 'PlayerController.login').middleware('guest')

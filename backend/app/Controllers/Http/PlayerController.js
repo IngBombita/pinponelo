@@ -2,15 +2,14 @@
 
 const Player = use("App/Models/Player");
 const Database = use("Database")
-const CurrentUser = use('App/Services/CurrentUserService')
 const TagCreator = use('App/Services/TagCreator')
 
 const DEFAULT_ELO = 1000;
 
 class PlayerController {
 
-  async me({response}) {
-    let player = await CurrentUser.getUser();
+  async me({response,auth}) {
+    let player = await auth.getUser();
     player.friends = await Database
       .from('friendships')
       .whereRaw('(player_a_id = :playerA OR player_b_id = :playerB) AND state = 2', {
@@ -42,23 +41,23 @@ class PlayerController {
 
   async register({request, response}) {
     const {email, password, username} = request.all()
-
-    let player = await Database.from('players').where({email}).first();
-
-    if (player) {
-      response.json({error: 'Email have been already used'}, 400)
-    }
-
-    player = new Player()
-    player.email = email
-    player.password = password
-    player.username = username
-    player.elo = DEFAULT_ELO
-    player.tag = await TagCreator.create(username)
-
-    await player.save(player);
-
-    response.json({message: 'Created', player}, 201)
+    response.json({'hola':TagCreator.create, email, password, username});
+    // let player = await Database.from('players').where({email}).first();
+    //
+    // if (player) {
+    //   response.json({error: 'Email have been already used'}, 400)
+    // }
+    //
+    // player = new Player()
+    // player.email = email
+    // player.password = password
+    // player.username = username
+    // player.elo = DEFAULT_ELO
+    // player.tag = await TagCreator.create(username)
+    //
+    // await player.save(player);
+    //
+    // response.json({message: 'Created', player}, 201)
   }
 
   async search({request, response}) {

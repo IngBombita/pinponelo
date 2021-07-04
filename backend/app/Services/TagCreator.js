@@ -4,7 +4,7 @@ const MIN_TAG_VALUE = 100;
 const MAX_TAG_VALUE = 1000;
 
 class TagCreator {
-  async create(username) {
+  create = async (username) => {
     let tag, exists
     do {
       tag = Math.floor(Math.random() * (MAX_TAG_VALUE - MIN_TAG_VALUE) + MIN_TAG_VALUE);
@@ -13,3 +13,5 @@ class TagCreator {
     return tag;
   }
 }
+
+module.exports = TagCreator;

@@ -1,20 +1,11 @@
 <script>
-
-import PaddlesIcon from "../Components/SVGs/PaddlesIcon.svelte";
-
+    import PaddlesIcon from "../Components/SVGs/PaddlesIcon.svelte";
     import {clickOutside} from '../Components/REPL/clickOutside.js';
     import {fly} from 'svelte/transition';
-    import Input from "../Components/Input.svelte";
+    import RegisterModal from "../Components/Modals/RegisterModal.svelte";
 
     let showLoginForm = false;
     let showRegisterForm = false;
-
-    let loginForm = {
-        email: '',
-        password: ''
-    };
-
-    let submitLoginForm = () => {};
 </script>
 
 <!-- component -->
@@ -40,25 +31,11 @@ import PaddlesIcon from "../Components/SVGs/PaddlesIcon.svelte";
                 </button>
                 <!-- Modal Background -->
                 {#if showLoginForm}
-                    <div transition:fly="{{ y: 400, duration: 500 }}"
+                    <div transition:fly="{{ y: 300, duration: 1000 }}"
                          use:clickOutside on:click_outside={() => showLoginForm=false}
                          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
                         <!-- Modal -->
-                        <div class="bg-white rounded-xl shadow-2xl p-6 sm:w-10/12 mx-10">
-                            <!-- Title -->
-                            <span class="font-bold block text-2xl mb-3">Login</span>
-                            <!-- Buttons -->
-                            <div class="text-right mt-5">
-                                <Input inputName="{'E-mail'}" type="{'email'}" value="{loginForm.email}"/>
-                                <Input inputName="{'Password'}" type="{'password'}" value="{loginForm.password}"/>
-                                <button
-                                        class="flex items-center justify-center h-12 px-6 bg-gray-900 text-white w-full mt-10 rounded"
-                                        on:click={submitLoginForm}
-                                >
-                                    <span>Login</span>
-                                </button>
-                            </div>
-                        </div>
+                        <RegisterModal/>
                     </div>
                 {/if}
             </div>
