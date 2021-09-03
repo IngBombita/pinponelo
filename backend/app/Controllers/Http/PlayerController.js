@@ -41,23 +41,30 @@ class PlayerController {
 
   async register({request, response}) {
     const {email, password, username} = request.all()
-    response.json({'hola':TagCreator.create, email, password, username});
-    // let player = await Database.from('players').where({email}).first();
-    //
-    // if (player) {
-    //   response.json({error: 'Email have been already used'}, 400)
-    // }
-    //
-    // player = new Player()
-    // player.email = email
-    // player.password = password
-    // player.username = username
-    // player.elo = DEFAULT_ELO
+    // response.json({'hola':TagCreator.create, email, password, username});
+    let player = await Database.from('players').where({email}).first();
+
+    if (player) {
+      response.json({error: 'Email have been already used'}, 400)
+    }
+
+    player = new Player()
+    player.email = email
+    player.password = password
+    player.username = username
+    player.elo = DEFAULT_ELO
     // player.tag = await TagCreator.create(username)
-    //
-    // await player.save(player);
-    //
-    // response.json({message: 'Created', player}, 201)
+
+    await player.save(player);
+
+    response.json({message: 'Created', player}, 201)
+  }
+
+  async login ({ request, auth }) {
+    const { email, password } = request.all()
+    await auth.attempt(email, password)
+
+    return 'Logged in successfully'
   }
 
   async search({request, response}) {

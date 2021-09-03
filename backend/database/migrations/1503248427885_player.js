@@ -8,7 +8,7 @@ class PlayerSchema extends Schema {
     this.create('players', (table) => {
       table.increments()
       table.string('username', 80).notNullable()
-      table.integer('tag').notNullable()
+      table.integer('tag').nullable()
       table.string('email', 254).notNullable().unique()
       table.string('password', 60).notNullable()
       table.string('description', 254).nullable()
